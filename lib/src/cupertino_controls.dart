@@ -75,13 +75,16 @@ class _CupertinoControlsState extends State<CupertinoControls> {
         },
         child: AbsorbPointer(
           absorbing: _hideStuff,
-          child: Column(
-            children: <Widget>[
-              _buildTopBar(
-                  backgroundColor, iconColor, barHeight, buttonPadding),
-              _buildHitArea(),
-              _buildBottomBar(backgroundColor, iconColor, barHeight),
-            ],
+          child: Padding(
+            padding: chewieController.controlsPadding,
+            child: Column(
+              children: <Widget>[
+                _buildTopBar(
+                    backgroundColor, iconColor, barHeight, buttonPadding),
+                _buildHitArea(),
+                _buildBottomBar(backgroundColor, iconColor, barHeight),
+              ],
+            ),
           ),
         ),
       ),
@@ -201,6 +204,42 @@ class _CupertinoControlsState extends State<CupertinoControls> {
                       : OpenIconicIcons.fullscreenEnter,
                   color: iconColor,
                   size: 12.0,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  GestureDetector _buildCloseButton(
+    Color backgroundColor,
+    Color iconColor,
+    double barHeight,
+    double buttonPadding,
+  ) {
+    return GestureDetector(
+      onTap: _onClose,
+      child: AnimatedOpacity(
+        opacity: _hideStuff ? 0.0 : 1.0,
+        duration: Duration(milliseconds: 300),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: BackdropFilter(
+            filter: ui.ImageFilter.blur(sigmaX: 10.0),
+            child: Container(
+              height: barHeight,
+              padding: EdgeInsets.only(
+                left: buttonPadding,
+                right: buttonPadding,
+              ),
+              color: backgroundColor,
+              child: Center(
+                child: Icon(
+                  OpenIconicIcons.x,
+                  color: iconColor,
+                  size: 10.0,
                 ),
               ),
             ),
@@ -395,6 +434,10 @@ class _CupertinoControlsState extends State<CupertinoControls> {
       ),
       child: Row(
         children: <Widget>[
+          (chewieController.closeCallback != null)
+              ? _buildCloseButton(
+                  backgroundColor, iconColor, barHeight, buttonPadding)
+              : Container(),
           chewieController.allowFullScreen
               ? _buildExpandButton(
                   backgroundColor, iconColor, barHeight, buttonPadding)
@@ -436,6 +479,13 @@ class _CupertinoControlsState extends State<CupertinoControls> {
         });
       });
     }
+  }
+
+  void _onClose() {
+    setState(() {
+      _hideStuff = true;
+      chewieController.closeCallback();
+    });
   }
 
   void _onExpandCollapse() {

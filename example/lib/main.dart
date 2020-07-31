@@ -39,6 +39,10 @@ class _ChewieDemoState extends State<ChewieDemo> {
       aspectRatio: 3 / 2,
       autoPlay: true,
       looping: true,
+      autoInitialize: true,
+      allowFullScreen: false,
+      closeCallback: () => print("close"),
+      controlsPadding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
       // Try playing around with some of these other options:
 
       // showControls: false,
@@ -78,8 +82,10 @@ class _ChewieDemoState extends State<ChewieDemo> {
           children: <Widget>[
             Expanded(
               child: Center(
-                child: Chewie(
-                  controller: _chewieController,
+                child: Container(
+                  child: Chewie(
+                    controller: _chewieController,
+                  ),
                 ),
               ),
             ),

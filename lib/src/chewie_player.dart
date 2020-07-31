@@ -184,6 +184,8 @@ class ChewieController extends ChangeNotifier {
     this.isLive = false,
     this.allowFullScreen = true,
     this.allowMuting = true,
+    this.closeCallback,
+    this.controlsPadding,
     this.systemOverlaysAfterFullScreen = SystemUiOverlay.values,
     this.deviceOrientationsAfterFullScreen = const [
       DeviceOrientation.portraitUp,
@@ -258,6 +260,12 @@ class ChewieController extends ChangeNotifier {
 
   /// Defines if the fullscreen control should be shown
   final bool allowFullScreen;
+
+  /// Defines a callback for a close operation
+  final VoidCallback closeCallback;
+
+  /// Padding for the controls
+  final EdgeInsetsGeometry controlsPadding;
 
   /// Defines if the mute control should be shown
   final bool allowMuting;
