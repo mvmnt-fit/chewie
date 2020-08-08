@@ -1,6 +1,6 @@
 name: chewie
 description: A video player for Flutter with Cupertino and Material play controls
-version: 0.9.10
+version: 0.9.10+1
 homepage: https://github.com/brianegan/chewie
 
 environment:
@@ -8,13 +8,9 @@ environment:
   flutter: ">=1.9.1 <2.0.0"
 
 dependencies:
+  video_player: ">=0.7.0 <0.11.0"
   open_iconic_flutter: ">=0.3.0 <0.4.0"
   wakelock: ">=0.1.2 <0.2.0"
-  video_player: #">=0.7.0 <0.11.0"
-    git:
-      url: git@github.com:mvmnt-fit/plugins.git
-      path: packages/video_player/video_player
-      ref: feature/video_audio_ducking
 
   flutter:
     sdk: flutter
